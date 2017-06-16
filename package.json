@@ -1,36 +1,41 @@
 {
-  "name": "copy-node-modules",
-  "version": "1.0.2",
+  "name": "node-red-modules-util",
+  "version": "0.0.1",
   "description": "Copy node modules listed in 'dependencies' or 'devDependencies' field of package.json to destination folder",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/arloliu/copy-node-modules"
+    "url": "https://github.com/jbjares/copy-node-modules.git"
   },
   "bin": {
     "copy-node-modules": "./bin/copy-node-modules.js"
   },
   "scripts": {
-    "test": "eslint ./index.js"
+    "test": "eslint ./execute.js"
   },
   "keywords": [
     "install",
     "deployment",
-    "package"
+    "package",
+    "node-red"
   ],
   "engine": {
     "node": ">=0.12"
   },
-  "author": "Arlo Liu <arlo.liu@gmail.com>",
+  "author": "Joao Bosco Jares <jbjares@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "async": "^2.0.0-rc.4",
-    "jsonfile": "^2.3.0",
+    "async": "^2.4.1",
+    "bcrypt": "1.0.2",
+    "body-parser": "1.x",
+    "cfenv": "~1.0.0",
+    "express": "4.x",
+    "jsonfile": "^3.0.0",
     "lodash.flatten": "^4.4.0",
     "lodash.uniqwith": "^4.5.0",
-    "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
-    "semver": "^5.1.0"
+    "read-package-json": "^2.0.5",
+    "when": "^3.7.8"
   },
   "devDependencies": {
     "eslint": "^2.9.0",

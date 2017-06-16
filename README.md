@@ -12,11 +12,11 @@ The modern applications use lots of modules, each module depends on more modules
 It will save you a bunch of time to deploy stand-alone application from existed development directory, no need to fetch all modules from remote repository.
 
 ## Installation
-    npm install copy-node-modules --save-dev
+    npm install node-red-modules-util --save-dev
 
 ## Programmatic Usage
 ```javascript
-var copyNodeModule = require('copy-node-modules');
+var copyNodeModule = require('node-red-modules-util');
 ```
 #### copyNodeModules(srcDir, dstDir, [options], callback)
 * `srcDir`: source directory contains package.json file.
@@ -25,28 +25,64 @@ var copyNodeModule = require('copy-node-modules');
   `devDependencies`: Boolean value, defaults to **false**, also copy development modules when it sets to **true**
 * `callback(err, results)`: A callback which is called when all copy tasks have finished or error occurs, `results` is an array contains copied modules, each item is an object as `{name: 'xxx', version: 'xxx'}`
 
+OR
+
+#### copyNodeModule(srcDir, dstDir, [options], callback)
+* `srcDir`: source directory contains package.json file.
+* `dstDir`: destination directory to copy modules, the modules will copy to `dstDir/node_modules` directory.
+* `options`:
+  `devDependencies`: Boolean value, defaults to **false**, also copy development modules when it sets to **true**
+* `callback(err, results)`: A callback which is called when all copy tasks have finished or error occurs, `results` is an array contains copied modules, each item is an object as `{name: 'xxx', version: 'xxx'}`
+
+
 ## Examples
 ```javascript
-var copyNodeModule = require('copy-node-modules');
-var srcDir = '/somewhere/project';
-var dstDir = '/somewhere/project/dist';
-copyNodeModule(srcDir, dstDir, {devDependencies: false}, function(err, results) {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  for (var i in results) {
-    console.log('package name:' + results[i].name + ' version:' + results[i].version);
-  }
+var test = require('node-red-modules-util').copyOne();
+var executeCopy = test.copyNodeModule("../", "nodes","test", {devDependencies: false}, function(err, results) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    for (var i in results) {
+        if(results[i].name.includes("node-red")){
+            console.log('package name:' + results[i].name + ' version:' + results[i].version);
+        }
+
+    }
 });
 ```
 
 ## CLI Usage
-    Usage: Usage: copy-node-modules src_dir dest_dir [--dev] [-v|--verbose]
-* `src_dir`: source directory contains package.json file.
-* `dest_dir`: destination directory to copy modules, the modules will copy to `dstDir/node_modules` directory.
-* `--dev`: also copy modules listed in `devDependencies` field.
-* `-v|--verbose`: verbose mode.
+jbjares:test jbjares$ node -e "require('./../index.js').copyOne('../','../modules','async',function(err, results) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    for (var i in results) {
+        if(results[i].name.includes('node-red')){
+            console.logD('package name:' + results[i].name + ' version:' + results[i].version);
+        }
+
+    }
+})"
+
 
 ## License
 MIT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PS.: This project started as an evolution of the copy-node-modules for personal purposes only, as well as should be improved anytime.
